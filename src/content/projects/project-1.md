@@ -66,61 +66,12 @@ EcoBuddy has successfully created a community of environmentally conscious indiv
 
 **Note:** This case study is entirely fictional and created for the purpose of showcasing [Dante Astro.js theme functionality](https://justgoodui.com/astro-themes/dante/).
 
-# Generated from: S5 ladb_mobility_economy_project_student(1).ipynb
-# Converted at: 2026-03-23T23:35:55.942Z
-# Next step (optional): refactor into modules & generate tests with RunCell
-# Quick start: pip install runcell
+## Introducción
 
-# <div class="alert alert-block alert-success">
-# <b>Comentario general del revisor</b> <a class="tocSkip"></a><br />
-# Status del proyecto: <b>Aprobado</b>
-#     
-# 
-# </div>
-# 
-
-
-# ¡Hola!<br />
-# Soy **Francisco Cortés**, estoy contento de revisar tu proyecto y ser parte de tu proceso de aprendizaje.
-# A lo largo del texto, haré algunas observaciones sobre mejoras en el código y también haré comentarios sobre tus percepciones sobre el tema. Si existe algún error en el código, no te preocupes, estoy aquí para ayudarte a mejorarlo, en la primera iteración te lo señalaré para que tengas la oportunidad de corregirlo, pero si aún no encuentras una solución para esta tarea, te daré una pista más precisa en la próxima iteración y también algunos ejemplos prácticos. Estaré abierto a retroalimentación y discusiones sobre el tema.<br />
-# Encontrarás mis comentarios a continuación - **por favor no los muevas, modifiques o borres**.
-# Revisaré cuidadosamente tu código para comprobar que se han cumplido con los requisitos y te proporcionaré mis comentarios en cajas verdes, amarillas o rojas como esta:
-# 
-# <div class="alert alert-block alert-success">
-# <b>Comentario del revisor</b> <a class="tocSkip"></a>
-# 
-# Si la ejecución fue perfecta succesfully.
-# </div>
-# 
-# <div class="alert alert-block alert-warning">
-# <b>Comentario del revisor</b> <a class="tocSkip"></a>
-# 
-# Si existe alguna recomendación para que tu código mejore.
-# </div>
-# 
-# <div class="alert alert-block alert-danger">
-# 
-# <b>Comentario del revisor</b> <a class="tocSkip"></a>
-# 
-# Si existen correcciones necesarias para cumplir con los requisitos. El trabajo no puede ser aceptado si hay alguna caja roja.
-# </div>
-# 
-# Puedes responderme de la siguiente manera:
-# 
-# <div class="alert alert-block alert-info">
-# <b>Respuesta del estudiante.</b> <a class="tocSkip"></a>
-# </div>
-# 
-
-
-# ## Introducción
-# 
-# Como analista de datos, tu objetivo es **evaluar cómo la movilidad urbana se relaciona con la productividad económica en las principales ciudades latinoamericanas**. 
-# Para ello trabajarás con datos reales de TomTom Traffic Index y OECD Cities, que deberás limpiar, combinar y analizar para identificar en qué ciudades conviene invertir en infraestructura de transporte.
-
+Como analista de datos, tu objetivo es **evaluar cómo la movilidad urbana se relaciona con la productividad económica en las principales ciudades latinoamericanas**. 
+Para ello trabajarás con datos reales de TomTom Traffic Index y OECD Cities, que deberás limpiar, combinar y analizar para identificar en qué ciudades conviene invertir en infraestructura de transporte.
 
 #  
-
 
 # ## 🧩 Paso 1: Cargar y explorar
 # 

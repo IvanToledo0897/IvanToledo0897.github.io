@@ -73,25 +73,23 @@ Para ello trabajarás con datos reales de TomTom Traffic Index y OECD Cities, qu
 
 #  
 
-# ## 🧩 Paso 1: Cargar y explorar
-# 
-# Antes de limpiar o combinar los datos, es necesario **familiarizarte con la estructura de ambos datasets**.
-# En esta etapa, validarás que los archivos se carguen correctamente, conocerás sus columnas y tipos de datos, y detectarás posibles inconsistencias.
-# 
-# ### 1.1 Carga de datos y vista rápida
-# 
-# **🎯Objetivo:**
-# Importar las librerías necesarias, cargar los archivos CSV en DataFrames y realizar una revisión preliminar para entender su contenido.
-# 
-# **Instrucciones:**
-# - Importa las librerías `pandas`, `numpy`, `seaborn` y `matplotlib.pyplot`.
-# - Carga los archivos usando `pd.read_csv()`:
-#   - `'/datasets/tomtom_traffic.csv'`
-#   - `/datasets/oecd_city_economy.csv` `.
-# - Guarda los DataFrames en las variables `traffic` y `eco`.
-# - Muestra las primeras 5 filas de cada DataFrame.
-# 
-
+## 🧩 Paso 1: Cargar y explorar
+ 
+Antes de limpiar o combinar los datos, es necesario **familiarizarte con la estructura de ambos datasets**.
+En esta etapa, validarás que los archivos se carguen correctamente, conocerás sus columnas y tipos de datos, y detectarás posibles inconsistencias.
+ 
+### 1.1 Carga de datos y vista rápida
+ 
+**🎯Objetivo:**
+Importar las librerías necesarias, cargar los archivos CSV en DataFrames y realizar una revisión preliminar para entender su contenido.
+ 
+**Instrucciones:**
+- Importa las librerías `pandas`, `numpy`, `seaborn` y `matplotlib.pyplot`.
+- Carga los archivos usando `pd.read_csv()`:
+  - `'/datasets/tomtom_traffic.csv'`
+  - `/datasets/oecd_city_economy.csv` `.
+- Guarda los DataFrames en las variables `traffic` y `eco`.
+- Muestra las primeras 5 filas de cada DataFrame.
 
 # importar librerías
 import pandas as pd

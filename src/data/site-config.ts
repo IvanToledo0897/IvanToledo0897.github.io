@@ -23,10 +23,6 @@ const siteConfig: SiteConfig = {
         {
             text: 'Projects',
             href: '/projects'
-        },
-        {
-            text: 'Experience',
-            href: '/experience'
         }
     ],
     footerNavLinks: [
@@ -57,10 +53,10 @@ const siteConfig: SiteConfig = {
         title: 'Welcome, pleased for your visit. Explore my Data Portfolio.',
         text: "I'm a Data Analyst with experience in Python, SQL, Google Sheets and C++. I love to have the full picture and analyse every aspects of it. \nMy portfolio talks more about me than I could possible do. C'mon, lets dive into it!",
         //text: "I'm **Ethan Donovan**, a web developer at Amazing Studio, dedicated to the realms of collaboration and artificial intelligence.\nMy approach involves embracing intuition, conducting just enough research, and leveraging aesthetics as a catalyst for exceptional products.\nI have a profound appreciation for top-notch software, visual design, and the principles of product-led growth.\n\nFeel free to explore some of my coding endeavors on [GitHub](https://github.com/JustGoodUI/dante-astro-theme) or follow me on [Twitter/X](https://twitter.com/justgoodui).",
-        image: {
+        /*image: {
             src: hero,
             alt: 'A person sitting at a desk in front of a computer'
-        },
+        },*/
         actions: [
             {
                 text: 'Get in Touch',
@@ -77,7 +73,7 @@ const siteConfig: SiteConfig = {
         }
     },
     //postsPerPage: 8,
-    projectsPerPage: 4
+    projectsPerPage: 1
 };
 
 export default siteConfig;

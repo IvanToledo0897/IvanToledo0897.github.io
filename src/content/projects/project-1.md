@@ -71,8 +71,6 @@ EcoBuddy has successfully created a community of environmentally conscious indiv
 Como analista de datos, el objetivo es **evaluar cómo la movilidad urbana se relaciona con la productividad económica en las principales ciudades latinoamericanas**. 
 Para ello trabajaré con datos reales de TomTom Traffic Index y OECD Cities; debo limpiar, combinar y analizar para identificar en qué ciudades conviene invertir en infraestructura de transporte.
 
-#  
-
 ## 🧩 Paso 1: Cargar y explorar
  
 Antes de limpiar o combinar los datos, es necesario **revisar la estructura de ambos datasets**.
@@ -83,7 +81,7 @@ Validar que los archivos se carguen correctamente, conocer sus columnas y tipos 
 **🎯Objetivo:**
 Importar las librerías necesarias, cargar los archivos CSV en DataFrames y realizar una revisión preliminar para entender su contenido.
 
-# importar librerías
+#### Importar librerías
 ```python
 import pandas as pd
 import numpy as np
@@ -91,82 +89,63 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 ```
 
-# cargar archivos
+#### Cargar archivos
 ```python
 traffic = pd.read_csv('/datasets/tomtom_traffic.csv')
 eco = pd.read_csv('/datasets/oecd_city_economy.csv')
 ```
 
-# mostrar las primeras 5 filas de traffic
+#### Mostrar las primeras 5 filas de traffic
 ```python
 traffic.head()
 ```
 
-# mostrar las primeras 5 filas de eco
+#### Mostrar las primeras 5 filas de eco
 ```python
 eco.head()
 ```
 
-
 ---
 
 ## 🧩Paso 2: Explorar, limpiar y preparar los datos
- 
-Antes de combinar los datasets, inspecciona su estructura, tipos de datos, columnas y valores faltantes.
-Anota las columnas que necesiten limpieza y luego estandariza los nombres de columnas.
+
+Anotar las columnas que necesiten limpieza y luego estandarizar los nombres de columnas.
  
 ### 2.1 Explorar la estructura y tipos de datos
-# 
-# **🎯Objetivo:**
-# Identificar columnas con tipos incorrectos, distribución y nulos, anotar las columnas que requieren conversión.
-# 
-# **Instrucciones:**
-# 
-# - Usa `.info()` para conocer la estructura de ambos DataFrames.
-# - Muestra los primeros 3 renglones de cada DF.
-# - Identifica si los detalles de cada DF estan bien o si requieren correcciones y escribe tus conclusiones en el bloque Markdown.
-#   - ¿Hay columnas que requieren conversión?¿ Cuáles son? ¿Que tipo de dato ienen y cuál deberían de tener?
-#   - ¿Hay datos ausentes en alguna columna?
-# 
-
-
-# Examinar la estructura de traffic
+ 
+**🎯Objetivo:**
+Identificar columnas con tipos incorrectos, distribución y nulos, anotar las columnas que requieren conversión.
+ 
+#### Examinar la estructura de traffic
+```python
 traffic.info()
+```
 
-# En la estructura del DF traffic, se observa que:
-# - Las columnas `UpdateTimeUTC` y `UpdateTimeUTC` son de tipo objeto cuando deberian ser datetime. Lo mismo ocurre con `UpdateTimeUTCWeekAgo`.
-# - Las columnas `Country` y `City` son object en vez de `STRING`.
-# - JamsCount estaría mejor como `INT`.
+#### Comentarios personales
+En la estructura del DF traffic, se observa que:
+ - Las columnas `UpdateTimeUTC` y `UpdateTimeUTC` son de tipo objeto cuando deberian ser datetime. Lo mismo ocurre con `UpdateTimeUTCWeekAgo`.
+ - Las columnas `Country` y `City` son object en vez de `STRING`.
+ - JamsCount estaría mejor como `INT`.
 
 
-# Examinar la estructura de eco
+#### Examinar la estructura de eco
+```python
 eco.info()
+```
 
-# En la estructura del DF eco, se observa que:
-# - Las columnas `City GDP/capita`, `Unemployment %`, `PM2.5(μg/m³)` y `Population (M)` son `object` en vez de `FLOAT`.
-# - Las columnas `City`, `Country` son object en vez de `STRING`.
-
-
-# ### 2.2 Renombrar columnas
-# 
-# **🎯Objetivo:**
-# Estandarizar los nombres de columnas para evitar errores y facilitar la unión de los datasets.
-# 
-# **Instrucciones:**
-# 
-# - Cambia los nombres de las columnas para que tengan el formato `snake_case`.
-#     - `Country` → `country`
-# 
-#     - `UpdateTimeUTC` → `update_time_utc`
-# 
-# - Verifica que los cambios se hayan aplicado correctamente usando `.columns`.
-# 
+#### Comentarios personales
+En la estructura del DF eco, se observa que:
+ - Las columnas `City GDP/capita`, `Unemployment %`, `PM2.5(μg/m³)` y `Population (M)` son `object` en vez de `FLOAT`.
+ - Las columnas `City`, `Country` son object en vez de `STRING`.
 
 
-# Estandarizar los nombres de las columnas de traffic
-#tu código aquí
-
-
+### 2.2 Renombrar columnas
+ 
+**🎯Objetivo:**
+Estandarizar los nombres de columnas para evitar errores y facilitar la unión de los datasets.
+ 
+#### Estandarizar los nombres de las columnas de traffic
+```python
 traffic=traffic.rename(columns={
     'Country':'country',
     'City':'city',
@@ -180,7 +159,7 @@ traffic=traffic.rename(columns={
     'TravelTimeLivePer10KmsMins':'travel_time_live_per_10kms_mins',
     'TravelTimeHistoricPer10KmsMins':'travel_time_hist_per_10kms_mins',
     'MinsDelay':'mins_delay'})
-
+```
 # verificar cambios
 traffic.columns
 

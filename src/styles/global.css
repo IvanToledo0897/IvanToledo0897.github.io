@@ -11,6 +11,13 @@
 .prose code::after {
   content: "" !important;
 }
+.prose code {
+  color: #db2777; /* Un rosa/fucsia tipo Python/Prettier */
+  background-color: #f3f4f6;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:where(.dark, .dark *));

@@ -68,28 +68,20 @@ EcoBuddy has successfully created a community of environmentally conscious indiv
 
 ## Introducción
 
-Como analista de datos, tu objetivo es **evaluar cómo la movilidad urbana se relaciona con la productividad económica en las principales ciudades latinoamericanas**. 
-Para ello trabajarás con datos reales de TomTom Traffic Index y OECD Cities, que deberás limpiar, combinar y analizar para identificar en qué ciudades conviene invertir en infraestructura de transporte.
+Como analista de datos, el objetivo es **evaluar cómo la movilidad urbana se relaciona con la productividad económica en las principales ciudades latinoamericanas**. 
+Para ello trabajaré con datos reales de TomTom Traffic Index y OECD Cities; debo limpiar, combinar y analizar para identificar en qué ciudades conviene invertir en infraestructura de transporte.
 
 #  
 
 ## 🧩 Paso 1: Cargar y explorar
  
-Antes de limpiar o combinar los datos, es necesario **familiarizarte con la estructura de ambos datasets**.
-En esta etapa, validarás que los archivos se carguen correctamente, conocerás sus columnas y tipos de datos, y detectarás posibles inconsistencias.
+Antes de limpiar o combinar los datos, es necesario **revisar la estructura de ambos datasets**.
+Validar que los archivos se carguen correctamente, conocer sus columnas y tipos de datos, y detectar posibles inconsistencias.
  
-### 1.1 Carga de datos y vista rápida
+## 1.1 Carga de datos y vista rápida
  
 **🎯Objetivo:**
 Importar las librerías necesarias, cargar los archivos CSV en DataFrames y realizar una revisión preliminar para entender su contenido.
- 
-**Instrucciones:**
-- Importa las librerías ```python pandas```, `numpy`, `seaborn` y `matplotlib.pyplot`.
-- Carga los archivos usando `pd.read_csv()`:
-  - `'/datasets/tomtom_traffic.csv'`
-  - `/datasets/oecd_city_economy.csv` `.
-- Guarda los DataFrames en las variables `traffic` y `eco`.
-- Muestra las primeras 5 filas de cada DataFrame.
 
 # importar librerías
 ```python
@@ -100,8 +92,9 @@ import matplotlib.pyplot as plt
 ```
 
 # cargar archivos
-traffic = pd.read_csv('/datasets/tomtom_traffic.csv')
+```traffic = pd.read_csv('/datasets/tomtom_traffic.csv')
 eco = pd.read_csv('/datasets/oecd_city_economy.csv')
+```
 
 # mostrar las primeras 5 filas de traffic
 traffic.head()

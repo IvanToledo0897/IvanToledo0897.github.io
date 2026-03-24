@@ -3,6 +3,14 @@
 @import '@fontsource-variable/newsreader/wght-italic.css' layer(base);
 
 @import 'tailwindcss';
+/* Quita las comillas automáticas que Tailwind Typography añade al código en línea */
+.prose code::before {
+  content: "" !important;
+}
+
+.prose code::after {
+  content: "" !important;
+}
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:where(.dark, .dark *));

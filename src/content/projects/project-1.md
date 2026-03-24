@@ -78,7 +78,7 @@ Para ello trabajaré con datos reales de TomTom Traffic Index y OECD Cities; deb
 Antes de limpiar o combinar los datos, es necesario **revisar la estructura de ambos datasets**.
 Validar que los archivos se carguen correctamente, conocer sus columnas y tipos de datos, y detectar posibles inconsistencias.
  
-## 1.1 Carga de datos y vista rápida
+### 1.1 Carga de datos y vista rápida
  
 **🎯Objetivo:**
 Importar las librerías necesarias, cargar los archivos CSV en DataFrames y realizar una revisión preliminar para entender su contenido.
@@ -92,28 +92,30 @@ import matplotlib.pyplot as plt
 ```
 
 # cargar archivos
-```traffic = pd.read_csv('/datasets/tomtom_traffic.csv')
+```python
+traffic = pd.read_csv('/datasets/tomtom_traffic.csv')
 eco = pd.read_csv('/datasets/oecd_city_economy.csv')
 ```
 
 # mostrar las primeras 5 filas de traffic
+```python
 traffic.head()
+```
 
 # mostrar las primeras 5 filas de eco
+```python
 eco.head()
+```
 
-# **Tip:** Si no usas `print()` la tabla se vera mejor.
 
+---
 
-# 
-# ---
-# 
-# ## 🧩Paso 2: Explorar, limpiar y preparar los datos
-# 
-# Antes de combinar los datasets, inspecciona su estructura, tipos de datos, columnas y valores faltantes.
-# Anota las columnas que necesiten limpieza y luego estandariza los nombres de columnas.
-# 
-# ### 2.1 Explorar la estructura y tipos de datos
+## 🧩Paso 2: Explorar, limpiar y preparar los datos
+ 
+Antes de combinar los datasets, inspecciona su estructura, tipos de datos, columnas y valores faltantes.
+Anota las columnas que necesiten limpieza y luego estandariza los nombres de columnas.
+ 
+### 2.1 Explorar la estructura y tipos de datos
 # 
 # **🎯Objetivo:**
 # Identificar columnas con tipos incorrectos, distribución y nulos, anotar las columnas que requieren conversión.

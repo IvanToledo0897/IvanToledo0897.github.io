@@ -92,10 +92,12 @@ Importar las librerías necesarias, cargar los archivos CSV en DataFrames y real
 - Muestra las primeras 5 filas de cada DataFrame.
 
 # importar librerías
+```python
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+```
 
 # cargar archivos
 traffic = pd.read_csv('/datasets/tomtom_traffic.csv')

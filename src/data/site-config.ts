@@ -8,7 +8,7 @@ const siteConfig: SiteConfig = {
         src: avatar,
         alt: 'Ethan Donovan'
     },
-    title: 'Ivan',
+    title: 'Ivan Enrique Vazquez Toledo',
     subtitle: 'SQL and Python Data Analyst',
     description: 'Astro.js and Tailwind CSS theme for blog and portfolio by justgoodui.com',
     image: {

@@ -1,4 +1,4 @@
-import avatar from 'src/assets/images/F1411A92-DB09-4D89-A970-8EF70647521B_1_201_a.jpeg';
+import avatar from '../assets/images/F1411A92-DB09-4D89-A970-8EF70647521B_1_201_a.jpeg';
 import hero from '../assets/images/hero.jpg';
 import type { SiteConfig } from '../types';
 

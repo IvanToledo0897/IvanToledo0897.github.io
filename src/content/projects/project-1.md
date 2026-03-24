@@ -84,7 +84,7 @@ En esta etapa, validarás que los archivos se carguen correctamente, conocerás 
 Importar las librerías necesarias, cargar los archivos CSV en DataFrames y realizar una revisión preliminar para entender su contenido.
  
 **Instrucciones:**
-- Importa las librerías \`pandas\`, `numpy`, `seaborn` y `matplotlib.pyplot`.
+- Importa las librerías ```python pandas```, `numpy`, `seaborn` y `matplotlib.pyplot`.
 - Carga los archivos usando `pd.read_csv()`:
   - `'/datasets/tomtom_traffic.csv'`
   - `/datasets/oecd_city_economy.csv` `.

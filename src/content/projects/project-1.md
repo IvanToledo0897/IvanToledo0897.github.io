@@ -137,6 +137,7 @@ eco.info()
 En la estructura del DF eco, se observa que:
  - Las columnas `City GDP/capita`, `Unemployment %`, `PM2.5(μg/m³)` y `Population (M)` son `object` en vez de `FLOAT`.
  - Las columnas `City`, `Country` son object en vez de `STRING`.
+ - Cambiar variables a `int`
 
 
 ### 2.2 Renombrar columnas

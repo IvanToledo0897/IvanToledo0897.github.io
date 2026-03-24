@@ -81,7 +81,7 @@ Validar que los archivos se carguen correctamente, conocer sus columnas y tipos 
 **🎯Objetivo:**
 Importar las librerías necesarias, cargar los archivos CSV en DataFrames y realizar una revisión preliminar para entender su contenido.
 
-#### Importar librerías
+### Importar librerías
 ```python
 import pandas as pd
 import numpy as np
@@ -89,18 +89,18 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 ```
 
-#### Cargar archivos
+### Cargar archivos
 ```python
 traffic = pd.read_csv('/datasets/tomtom_traffic.csv')
 eco = pd.read_csv('/datasets/oecd_city_economy.csv')
 ```
 
-#### Mostrar las primeras 5 filas de traffic
+### Mostrar las primeras 5 filas de traffic
 ```python
 traffic.head()
 ```
 
-#### Mostrar las primeras 5 filas de eco
+### Mostrar las primeras 5 filas de eco
 ```python
 eco.head()
 ```
@@ -116,37 +116,34 @@ Anotar las columnas que necesiten limpieza y luego estandarizar los nombres de c
 **🎯Objetivo:**
 Identificar columnas con tipos incorrectos, distribución y nulos, anotar las columnas que requieren conversión.
  
-#### Examinar la estructura de traffic
+### Examinar la estructura de traffic
 ```python
 traffic.info()
 ```
 
-#### Comentarios personales
+### Comentarios personales
 En la estructura del DF traffic, se observa que:
  - Las columnas `UpdateTimeUTC` y `UpdateTimeUTC` son de tipo objeto cuando deberian ser datetime. Lo mismo ocurre con `UpdateTimeUTCWeekAgo`.
  - Las columnas `Country` y `City` son object en vez de `STRING`.
  - JamsCount estaría mejor como `INT`.
 
 
-#### Examinar la estructura de eco
+### Examinar la estructura de eco
 ```python
 eco.info()
 ```
 
-#### Comentarios personales
+### Comentarios personales
 En la estructura del DF eco, se observa que:
  - Las columnas `City GDP/capita`, `Unemployment %`, `PM2.5(μg/m³)` y `Population (M)` son `object` en vez de `FLOAT`.
  - Las columnas `City`, `Country` son object en vez de `STRING`.
-
-Cambiar variables a <code>int</code>
-
 
 ### 2.2 Renombrar columnas
  
 **🎯Objetivo:**
 Estandarizar los nombres de columnas para evitar errores y facilitar la unión de los datasets.
  
-#### Estandarizar los nombres de las columnas de traffic
+### Estandarizar los nombres de las columnas de traffic
 ```python
 traffic=traffic.rename(columns={
     'Country':'country',
@@ -162,16 +159,13 @@ traffic=traffic.rename(columns={
     'TravelTimeHistoricPer10KmsMins':'travel_time_hist_per_10kms_mins',
     'MinsDelay':'mins_delay'})
 ```
-# verificar cambios
+### verificar cambios
+```python
 traffic.columns
+```
 
-# **Comentario a revisor:**
-# Intente usar la sintaxis recomendada en la leccion de limpieza y organización del dataset (traffic.columns=["nuevos","nombres","de","columnas"]), pero me salía error y tras varios intentos solo pude dejarlo con el metodo de rename tradicional. Sucede con ambos Datasets.
-
-
-# Estandarizar los nombres de las columnas de eco
-#tu código aquí
-
+### Estandarizar los nombres de las columnas de eco
+```python
 eco=eco.rename(columns={
     'Year':'year',
     'City':'city',
@@ -180,84 +174,69 @@ eco=eco.rename(columns={
     'Unemployment %':'unemployment_pct',
     'PM2.5 (μg/m³)':'pm25',
     'Population (M)':'population_m'})
+```
 
-# verificar cambios
+### verificar cambios
+```python
 eco.columns
+```
 
-# 
-# ### 2.3 Corregir formatos numéricos y de fecha
-# 
-# **🎯Objetivo:**
-# Asegurar que las columnas de fechas y valores numéricos estén en formatos correctos para permitir análisis, cálculos y comparaciones precisas.
-# 
-# **Instrucciones:**
-# 
-# - Convierte las columnas de fecha de `traffic` a formato `datetime`. Haz el cambio a prueba de errores.
-# - En el dataset `eco`, limpia los valores numéricos:
-#     - En `city_gdp_capita`: elimina separadores de miles (`.`) y reemplaza las comas (`','`) por puntos (`'.'`) antes de convertir a tipo `float`.
-#     - En `unemployment_pct`: elimina el símbolo de porcentaje (`%`) y reemplaza las comas (`','`) por puntos (`'.'`) antes de convertir a tipo `float`.
-#     - En `population_m`: reemplaza las comas (`','`) por puntos (`'.'`) antes de convertir a tipo `float`.
-# - Finalmente, crea una nueva columna llamada `population` multiplicando `population_m` por 1,000,000 para obtener la población total.
-# 
-
-
-# <details>
-# <summary>Haz clic para ver la pista</summary>
-# para eliminar símbolos, puedes reemplazarlos por un texto vacío.
-
-
-# Convertir las columnas de traffic a tipo fecha con pd.to_datetime()
+ 
+### 2.3 Corregir formatos numéricos y de fecha
+ 
+**🎯Objetivo:**
+Asegurar que las columnas de fechas y valores numéricos estén en formatos correctos para permitir análisis, cálculos y comparaciones precisas.
+ 
+### Convertir las columnas de traffic a tipo fecha con `pd.to_datetime()`
+```python
 traffic['update_time_utc'] = pd.to_datetime(traffic['update_time_utc'], errors="coerce", utc=True)
 traffic['update_time_utc_week_ago'] = pd.to_datetime(traffic['update_time_utc_week_ago'], errors="coerce", utc=True)
+```
 
-# verificar el cambio
+### verificar el cambio
+```python
 traffic.info()
+```
 
-# Limpia separadores y convierte columnas numéricas en eco
+### Limpia separadores y convierte columnas numéricas en eco
+```python
 eco['city_gdp_capita'] = eco['city_gdp_capita'].astype(str).str.replace('.', '').str.replace(',', '.').astype(float)
 eco['unemployment_pct'] = eco['unemployment_pct'].astype(str).str.replace('%', '').str.replace(',', '.').astype(float)
 eco['population_m'] = eco['population_m'].astype(str).str.replace(',', '.').astype(float)
+```
 
-# Calcula la población total en unidades absolutas (Multiplica * 1000000)
+### Calcula la población total en unidades absolutas (Multiplica * 1000000)
+```python
 eco['population'] = eco['population_m']*1000000
+```
 
-# verificar el cambio
+### verificar el cambio
+
+```python
 eco.info()
 eco.head(3)
+```
 
-# <div class="alert alert-block alert-success">
-# <b>Comentario del revisor</b> <a class="tocSkip"></a><br />
-# Bien hecho!<br/>
-# 
-# Los datos fueron revisados y modificados apropiadamente, ahora se puede empezar a trabajar con ellos comodamente
-# </div>
-# 
+---
 
-
-# 
-# ---
-# 
-# ## 🧩Paso 3: Extraer año y filtrar
-# 
-# Extraer el año permite filtrar la información y trabajar solo con el período más reciente y relevante.
-# 
-# ### 3.1 Extraer columna año y filtrar 2024
-# 
-# **🎯Objetivo**
-# Identificar el año de cada registro y mantener solo los registros del 2024.
-# 
-# **Intrucciones**
-# 
-# - Como el DataFrame `traffic` no tiene una columna de año, utiliza el atributo `.dt.year` sobre su columna de fecha para crear una nueva columna llamada `year`.
-# - Filtra las filas donde el año sea **2024**.
-# - Utiliza `.copy()` para crear dos nuevos DataFrames (`traffic_2024` y `eco_2024`) para evitar modificar el dataset original.
-
-
-# Extraer el año de las fechas en update_time_utc
+## 🧩Paso 3: Extraer año y filtrar
+ 
+Extraer el año permite filtrar la información y trabajar solo con el período más reciente y relevante.
+ 
+### 3.1 Extraer columna año y filtrar 2024
+ 
+**🎯Objetivo**
+Identificar el año de cada registro y mantener solo los registros del 2024.
+ 
+### Extraer el año de las fechas en update_time_utc
+```python
 traffic['year'] = traffic['update_time_utc'].dt.year
+```
 
-# Verificar cambio
+### Verificar cambio
+```python
 traffic.head(3)
+```
 
 # Filtra los registros del año 2024
 traffic_2024 = traffic[traffic['year'] == 2024].copy()

@@ -51,7 +51,7 @@ const siteConfig: SiteConfig = {
     ],
     hero: {
         title: 'Welcome, pleased for your visit. Explore my Data Portfolio.',
-        text: "I'm a Data Analyst with experience in Python, SQL, Google Sheets and C++. I love to have the full picture and analyse every aspects of it. \nMy portfolio talks more about me than I could possible do. C'mon, lets dive into it!",
+        text: "I'm a Data Analyst with experience in Python, SQL, Google Sheets and C++. I love to have the full picture and analyse every aspects of it. \nI'm still forming in an intensive Bootcamp from TripleTen, who is teaching me from Zero to Hero everything about Data Analysis. My portfolio talks about my projects in this bootcamp and is planned to be growing along with my knowledge and beyond my formation. \nC'mon, lets dive into it!",
         //text: "I'm **Ethan Donovan**, a web developer at Amazing Studio, dedicated to the realms of collaboration and artificial intelligence.\nMy approach involves embracing intuition, conducting just enough research, and leveraging aesthetics as a catalyst for exceptional products.\nI have a profound appreciation for top-notch software, visual design, and the principles of product-led growth.\n\nFeel free to explore some of my coding endeavors on [GitHub](https://github.com/JustGoodUI/dante-astro-theme) or follow me on [Twitter/X](https://twitter.com/justgoodui).",
         /*image: {
             src: hero,

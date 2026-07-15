@@ -13,20 +13,15 @@ seo:
 
 ## Introducción
 
-Como analista de datos, el objetivo es **evaluar cómo la movilidad urbana se relaciona con la productividad económica en las principales ciudades latinoamericanas**. 
+El objetivo es **evaluar cómo la movilidad urbana se relaciona con la productividad económica en las principales ciudades latinoamericanas**. 
 Para ello trabajaré con datos reales de TomTom Traffic Index y OECD Cities; debo limpiar, combinar y analizar para identificar en qué ciudades conviene invertir en infraestructura de transporte.
 
-## 🧩 Paso 1: Cargar y explorar
+## Paso 1: Conocer los datos.
  
 Antes de limpiar o combinar los datos, es necesario **revisar la estructura de ambos datasets**.
 Validar que los archivos se carguen correctamente, conocer sus columnas y tipos de datos, y detectar posibles inconsistencias.
- 
-### 1.1 Carga de datos y vista rápida
- 
-**🎯Objetivo:**
-Importar las librerías necesarias, cargar los archivos CSV en DataFrames y realizar una revisión preliminar para entender su contenido.
 
-### Importar librerías
+### 1.1 Importar librerías
 ```python
 import pandas as pd
 import numpy as np
@@ -34,61 +29,51 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 ```
 
-### Cargar archivos
+### 1.2 Cargar archivos
 ```python
 traffic = pd.read_csv('/datasets/tomtom_traffic.csv')
 eco = pd.read_csv('/datasets/oecd_city_economy.csv')
 ```
 
-### Mostrar las primeras 5 filas de traffic
+#### Primeras 5 filas de traffic
 ```python
 traffic.head()
 ```
 
-### Mostrar las primeras 5 filas de eco
+#### Primeras 5 filas de eco
 ```python
 eco.head()
 ```
 
 ---
 
-## 🧩Paso 2: Explorar, limpiar y preparar los datos
-
-Anotar las columnas que necesiten limpieza y luego estandarizar los nombres de columnas.
+## Paso 2: Limpieza y preparacion
  
-### 2.1 Explorar la estructura y tipos de datos
+### 2.1 Estructura y tipos de datos
  
-**🎯Objetivo:**
-Identificar columnas con tipos incorrectos, distribución y nulos, anotar las columnas que requieren conversión.
- 
-### Examinar la estructura de traffic
+#### Estructura de traffic
 ```python
 traffic.info()
 ```
 
-### Comentarios personales
-En la estructura del DF traffic, se observa que:
+#### Comentarios
+En la estructura del DF traffic:
  - Las columnas `UpdateTimeUTC` y `UpdateTimeUTC` son de tipo objeto cuando deberian ser datetime. Lo mismo ocurre con `UpdateTimeUTCWeekAgo`.
- - Las columnas `Country` y `City` son object en vez de `STRING`.
  - JamsCount estaría mejor como `INT`.
 
 
-### Examinar la estructura de eco
+#### Estructura de eco
 ```python
 eco.info()
 ```
 
-### Comentarios personales
+#### Comentarios personales
 En la estructura del DF eco, se observa que:
  - Las columnas `City GDP/capita`, `Unemployment %`, `PM2.5(μg/m³)` y `Population (M)` son `object` en vez de `FLOAT`.
- - Las columnas `City`, `Country` son object en vez de `STRING`.
 
 ### 2.2 Renombrar columnas
  
-**🎯Objetivo:**
-Estandarizar los nombres de columnas para evitar errores y facilitar la unión de los datasets.
- 
-### Estandarizar los nombres de las columnas de traffic
+#### 2.2.1 Estandarizar los nombres de las columnas de traffic
 ```python
 traffic=traffic.rename(columns={
     'Country':'country',
@@ -104,12 +89,12 @@ traffic=traffic.rename(columns={
     'TravelTimeHistoricPer10KmsMins':'travel_time_hist_per_10kms_mins',
     'MinsDelay':'mins_delay'})
 ```
-### verificar cambios
+#### Verifico cambios
 ```python
 traffic.columns
 ```
 
-### Estandarizar los nombres de las columnas de eco
+#### 2.2.2 Estandarizar los nombres de las columnas de eco
 ```python
 eco=eco.rename(columns={
     'Year':'year',
@@ -121,7 +106,7 @@ eco=eco.rename(columns={
     'Population (M)':'population_m'})
 ```
 
-### verificar cambios
+#### Verifico cambios
 ```python
 eco.columns
 ```
@@ -129,33 +114,30 @@ eco.columns
  
 ### 2.3 Corregir formatos numéricos y de fecha
  
-**🎯Objetivo:**
-Asegurar que las columnas de fechas y valores numéricos estén en formatos correctos para permitir análisis, cálculos y comparaciones precisas.
- 
-### Convertir las columnas de traffic a tipo fecha con `pd.to_datetime()`
+#### Convertir las columnas de traffic a tipo fecha
 ```python
 traffic['update_time_utc'] = pd.to_datetime(traffic['update_time_utc'], errors="coerce", utc=True)
 traffic['update_time_utc_week_ago'] = pd.to_datetime(traffic['update_time_utc_week_ago'], errors="coerce", utc=True)
 ```
 
-### verificar el cambio
+#### Verifico el cambio
 ```python
 traffic.info()
 ```
 
-### Limpia separadores y convierte columnas numéricas en eco
+#### Limpiar separadores y conversion a columnas numéricas en eco
 ```python
 eco['city_gdp_capita'] = eco['city_gdp_capita'].astype(str).str.replace('.', '').str.replace(',', '.').astype(float)
 eco['unemployment_pct'] = eco['unemployment_pct'].astype(str).str.replace('%', '').str.replace(',', '.').astype(float)
 eco['population_m'] = eco['population_m'].astype(str).str.replace(',', '.').astype(float)
 ```
 
-### Calcula la población total en unidades absolutas (Multiplica * 1000000)
+#### Calcula la población total en unidades absolutas (Multiplica * 1000000)
 ```python
 eco['population'] = eco['population_m']*1000000
 ```
 
-### verificar el cambio
+#### Verifico el cambio
 ```python
 eco.info()
 eco.head(3)
@@ -163,50 +145,36 @@ eco.head(3)
 
 ---
 
-## 🧩Paso 3: Extraer año y filtrar
+## Paso 3: Extraer año y filtrar
  
-Extraer el año permite filtrar la información y trabajar solo con el período más reciente y relevante.
- 
-### 3.1 Extraer columna año y filtrar 2024
- 
-**🎯Objetivo**
-Identificar el año de cada registro y mantener solo los registros del 2024.
- 
-### Extraer el año de las fechas en update_time_utc
+Me han pedido que trabaje solo con el año 2024.
+
+### 3.1 Extraer el año de las fechas en update_time_utc
 ```python
 traffic['year'] = traffic['update_time_utc'].dt.year
 ```
 
-### Verificar cambio
+#### Verifico cambio
 ```python
 traffic.head(3)
 ```
 
-### Filtra los registros del año 2024
+### 3.2 Filtra año 2024
 ```python
 traffic_2024 = traffic[traffic['year'] == 2024].copy()
 eco_2024 = eco[eco['year'] == 2024].copy()
 ```
 
-### Revisar dataframes nuevos
+#### Revisar dataframes nuevos
 ```python
 display(traffic_2024.head())
 display(eco_2024.head())
 ```
 
+## Paso 4: Analizar y resumir datos de movilidad
  
----
- 
-## 🧩Paso 4: Analizar y resumir datos de movilidad
- 
-Como el dataset de tráfico contiene **múltiples registros por ciudad**. En esta parte, calcularás los promedios anuales por ciudad para simplificar el análisis y obtener una visión más clara de las tendencias generales.
- 
-### 4.1 Calcular promedios de tráfico por ciudad
- 
-**🎯Objetivo:**
-Obtener una vista consolidada del tráfico promedio por ciudad y año, para analizar patrones generales sin depender de datos diarios.
+Como el dataset de tráfico contiene múltiples registros por ciudad. Haré los promedios anuales por ciudad para simplificar el análisis y obtener una visión más clara de las tendencias generales.
 
-### Calcular los  promedios de trafico por ciudad, país y año
 ```python
 traffic_city_year_2024 = traffic_2024\
     .groupby(['city', 'country', 'year'])[['jams_delay', 'traffic_index_live', 'jams_length_kms', 'jams_count', 'mins_delay', 'travel_time_live_per_10kms_mins', 'travel_time_hist_per_10kms_mins']]\
@@ -214,14 +182,14 @@ traffic_city_year_2024 = traffic_2024\
     .reset_index()
 ```
 
-### Mostrar resultado
+#### Resultado
 ```python
 traffic_city_year_2024.head()
 ```
 
 
 
-### 🧠 **Momento de reflexión**
+#### Momento chisme
 ```python
 traffic_city_year_2024.sort_values(["jams_delay"], ascending=False)
 ```
@@ -230,16 +198,11 @@ La ciudad con el mayor tiempo promedio de tráfico es la Ciudad de Mexico con 28
 
 ---
 
-## 🧩Paso 5: Unir movilidad y economía
+## Paso 5: Unir movilidad y economía
  
 Combinar datasets permite analizar cómo se relacionan los indicadores económicos con los de movilidad.
  
-### 5.1 Unir tráfico (tabla principal) con indicadores económicos
- 
-**🎯Objetivo:**
-Combinar la información de tráfico y economía en un solo DataFrame para analizar cómo las condiciones económicas se relacionan con la movilidad urbana.
- 
-### Seleccionar columnas clave de tráfico y economía
+#### Seleccionar columnas clave de tráfico y economía
 ```python
 left_cols = ['city','country','year','jams_delay','traffic_index_live',
              'jams_length_kms','jams_count','mins_delay',
@@ -248,7 +211,7 @@ left_cols = ['city','country','year','jams_delay','traffic_index_live',
 right_cols = ['city','year','city_gdp_capita','unemployment_pct','pm25','population']
 ```
 
-### Usar `.copy()` para crear los dos nuevos datasets reducidos
+#### Usar `.copy()` para crear los dos nuevos datasets reducidos
 ```python
 traffic_2024_small = traffic_city_year_2024[left_cols].copy()
 eco_2024_small = eco_2024[right_cols].copy()
@@ -257,34 +220,27 @@ traffic_2024_small.head()
 eco_2024_small.head()
 ```
 
-### Unir datasets
+#### Unir datasets
 ```python
 merged = pd.merge(traffic_2024_small,eco_2024_small,on=['city','year'],how='inner')
 ```
 
-### Mostrar las primeras 5 filas
+#### Mostrar las primeras 5 filas
 ```python
 merged.head()
 ```
-
----
  
-## 🧩Paso 6: Visualización y análisis de relaciones
+## Paso 6: Visualización y análisis de relaciones
  
 Ya con un dataset limpio y unificado, es momento de **visualizar patrones**.
 
-### 6.1 Visualizar relaciones entre economía y tráfico
- 
-**🎯Objetivo:**
-Analizar visualmente la distribución y la relación entre indicadores de tráfico y economía en 2024, para identificar posibles patrones o tendencias generales entre ambas variables.
-
-### Crear boxplot para observar el comportamiento de los minutos de congestion JamsDelay
+### 6.1 Boxplot para observar el comportamiento de los minutos de congestion JamsDelay
 
 ```python
 sns.boxplot(data=merged, x='jams_delay', showmeans=True)
 ```
 
-### obtener promedio para mostrarlo en título
+### 6.2 Promedio para mostrarlo en título
 ```python
 mean_value = merged['jams_delay'].mean()
 plt.title(f'Boxplot de JamsDelay (2024)\nPromedio: {mean_value:.2f}')
@@ -292,7 +248,7 @@ plt.xlabel("Retraso promediio en minutos")
 plt.show()
 ```
 
-### Crear histograma para ver la distribución de la economía (city_gdp_capita)
+### 6.3 Histograma para ver la distribución de la economía (city_gdp_capita)
 ```python
 merged['city_gdp_capita'].hist(bins=5,figsize=(10,5))
 plt.title("Distribución de la economía")
@@ -300,7 +256,7 @@ plt.ylabel("Numero de ciudades")
 plt.xlabel("Valor promedio PIB per capita")
 ```
 
-### Gráfico de barras para comparar jams_delay y city_gdp_capita por ciudad
+### 6.4 Gráfico de barras para comparar jams_delay y city_gdp_capita por ciudad
 ```python
 merged.plot( kind='bar' , y=['jams_delay', 'city_gdp_capita'],x='city')
 plt.xticks(rotation=90)
@@ -311,21 +267,12 @@ plt.show()
 ```
 
 
-### 🧠 **Momento de reflexión**
+#### Momento chisme
 Las ciudades con mayor congestión tienden a tener un PIB mayor, parece una tendencia más que una regla.
 
---- 
 
-## 🧩Paso 7: Exportar y documentar resultados
+## Paso 7: Exportar y documentar resultados
  
-En esta etapa final consolidarás todo tu trabajo: guardarás el dataset limpio y crearás un resumen que documente los resultados del proyecto.
- 
-### 7.1 Guardar dataset final
- 
-**🎯Objetivo:**
-Generar un CSV limpio, reproducible y con columnas relevantes para análisis posterior.
-
-### Exporta el dataset final como CSV
 ```python
 merged.to_csv("ladb_mobility_economy_2024_clean.csv", index=False)
 ```
@@ -333,15 +280,12 @@ merged.to_csv("ladb_mobility_economy_2024_clean.csv", index=False)
 
 ---
 
-## ✅ Entregables
+## Entregables
 
 1. **Notebook `.ipynb`** con todas las celdas (código + comentarios).
 2. **CSV final**: `ladb_mobility_economy_2024_clean.csv`.
-3. **Resumen ejecutivo breve** en Markdown (3–5 párrafos).
 
----
-
-## 🧾 Resumen ejecutivo (plantilla)
+### 🧾 Resumen ejecutivo (plantilla)
 - Las variables claves fueron la ciudad, el PIB per capita y los jams_delays (retraso en minutos por congestión). Encontré una ligera tendencia tendencia entre un PIB y la congestión, pero no hay una relación directa entre la movibilidad y la productividad.
 - Filtré solamente el año 2024, 15 ciudades de paises como México, Perú, Brazil, Colombia, Uruguay, Chile y Argentina
 - Realicé analisis de 2 Datasets: tomtom_traffic.csv y oecd_city_economy.csv. Realicé correcciones de columnas y formatos. Filtre a entradas en el año 2024 y paises de America Latina. Obtuve el promedio de retrasos en tiempo por trafico y uní ambos Datasets por modalidad "inner" por ciudad y año. Posterior a eso realice grafica boxplot para encontrar anomalías, histograma para la observar la distribución de economía y una grafica de barras para comparar el PIB con el índice de trafico.

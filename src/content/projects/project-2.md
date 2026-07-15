@@ -5,11 +5,11 @@ description: Proyecto para RappiPlus, preparando datos para corroborar la estrat
 publishDate: '14 Julio 2026'
 seo:
   image:
-    src: '../../assets/images/project-1.jpg'
+    src: '../../assets/images/project-2.png'
     alt: Project preview
 ---
 
-![Project preview](../../assets/images/project-1.jpg)
+![Project preview](../../assets/images/project-2.png)
 
 # Proyecto Diagnóstico estratégico integral para RappiPlus
 

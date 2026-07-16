@@ -5,7 +5,7 @@ description: Proyecto para RappiPlus, preparando datos para corroborar la estrat
 publishDate: '14 Julio 2026'
 seo:
   image:
-    src: '../../assets/images/project-3.png'
+    src: '../../assets/images/project-2.png'
     alt: Project preview
 ---
 
